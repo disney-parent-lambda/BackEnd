@@ -19,12 +19,13 @@ public class DataSourceConfig
     @Bean(name = "dsCustom")
     public DataSource dataSource()
     {
+
+        String dbValue = env.getProperty("local.run.db");
+
         String myUrlString = "";
         String myDriverClass = "";
         String myDBUser = "";
         String myDBPassword = "";
-
-        String dbValue = env.getProperty("local.run.db");
 
         if (dbValue.equalsIgnoreCase("POSTGRESQL"))
         {
