@@ -1,7 +1,7 @@
 package com.lambdaschool.DisneyBackend.services;
 
 import com.lambdaschool.DisneyBackend.exceptions.ResourceNotFoundException;
-import com.lambdaschool.DisneyBackend.models.Quote;
+import com.lambdaschool.DisneyBackend.models.Ticket;
 import com.lambdaschool.DisneyBackend.models.User;
 import com.lambdaschool.DisneyBackend.models.UserRoles;
 import com.lambdaschool.DisneyBackend.repository.RoleRepository;
@@ -79,9 +79,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
         newUser.setUserRoles(newRoles);
 
-        for (Quote q : user.getQuotes())
+        for (Ticket t : user.getTickets())
         {
-            newUser.getQuotes().add(new Quote(q.getQuote(), newUser));
+            newUser.getTickets().add(new Ticket(t.getTicket(), newUser,t.getRestaurant(),t.getAttractions()));
         }
 
         return userrepos.save(newUser);
@@ -123,11 +123,11 @@ public class UserServiceImpl implements UserDetailsService, UserService
                     }
                 }
 
-                if (user.getQuotes().size() > 0)
+                if (user.getTickets().size() > 0)
                 {
-                    for (Quote q : user.getQuotes())
+                    for (Ticket t : user.getTickets())
                     {
-                        currentUser.getQuotes().add(new Quote(q.getQuote(), currentUser));
+                        currentUser.getTickets().add(new Ticket(t.getTicket(), currentUser,t.getRestaurant(),t.getAttractions()));
                     }
                 }
 
