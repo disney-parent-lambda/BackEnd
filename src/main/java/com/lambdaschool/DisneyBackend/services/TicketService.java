@@ -12,6 +12,10 @@ public interface TicketService
 
     List<Ticket> findByUserName(String username);
 
+    List<Ticket> findTicketByStatus(boolean status);
+
+//    List<Ticket> findTicketByTime();
+
     void delete(long id);
 
     Ticket save(Ticket ticket);

@@ -42,8 +42,16 @@ public class TicketServiceImpl implements TicketService
 
         list.removeIf(q -> !q.getUser().getUsername().equalsIgnoreCase(username));
         return list;
+    }
 
+    @Override
+    public List<Ticket> findTicketByStatus(boolean status)
+    {
+        List<Ticket> list = new ArrayList<>();
+        ticketrepo.findAll().iterator().forEachRemaining(list::add);
 
+        list.removeIf(q -> !q.isStatus());
+        return list;
     }
 
     @Transactional

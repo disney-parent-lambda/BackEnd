@@ -3,6 +3,7 @@ package com.lambdaschool.DisneyBackend.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiResponse;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,15 @@ public class Ticket
     @Column(nullable = false)
     private String ticket;
 
+    @ApiModelProperty(name = "Ticket time request", value = "TicketTime" , required = true, example = "10:15")
+    private String time;
+
+    @ApiModelProperty(name = "Kid Count", value = "Kid Count", required = true , example = "13")
+    private int kidCount;
+
+    @ApiModelProperty(name = "Ticket Status", value = "status", required = true , example = "true/false")
+    private boolean status;
+
     @ApiModelProperty(name = "User", value = "User", required = true , example = "Username:Carlos")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
@@ -48,9 +58,12 @@ public class Ticket
     {
     }
 
-    public Ticket(String ticket, User user, Restaurant restaurant, Attractions attractions)
+    public Ticket(@NotNull @Size(max = 200) String ticket, String time, int kidCount, boolean status, User user, Restaurant restaurant, Attractions attractions)
     {
         this.ticket = ticket;
+        this.time = time;
+        this.kidCount = kidCount;
+        this.status = status;
         this.user = user;
         this.restaurant = restaurant;
         this.attractions = attractions;
@@ -104,5 +117,35 @@ public class Ticket
     public void setAttractions(Attractions attractions)
     {
         this.attractions = attractions;
+    }
+
+    public int getKidCount()
+    {
+        return kidCount;
+    }
+
+    public void setKidCount(int kidCount)
+    {
+        this.kidCount = kidCount;
+    }
+
+    public boolean isStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(boolean status)
+    {
+        this.status = status;
+    }
+
+    public String getTime()
+    {
+        return time;
+    }
+
+    public void setTime(String time)
+    {
+        this.time = time;
     }
 }

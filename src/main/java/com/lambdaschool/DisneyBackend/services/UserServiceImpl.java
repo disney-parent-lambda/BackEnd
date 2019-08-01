@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
         for (Ticket t : user.getTickets())
         {
-            newUser.getTickets().add(new Ticket(t.getTicket(), newUser,t.getRestaurant(),t.getAttractions()));
+            newUser.getTickets().add(new Ticket(t.getTicket(), t.getTime(), t.getKidCount(),t.isStatus(), newUser,t.getRestaurant(),t.getAttractions()));
         }
 
         return userrepos.save(newUser);
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 {
                     for (Ticket t : user.getTickets())
                     {
-                        currentUser.getTickets().add(new Ticket(t.getTicket(), currentUser,t.getRestaurant(),t.getAttractions()));
+                        currentUser.getTickets().add(new Ticket(t.getTicket(), t.getTime(), t.getKidCount(),t.isStatus(), t.getUser(),t.getRestaurant(),t.getAttractions()));
                     }
                 }
 

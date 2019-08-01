@@ -62,8 +62,6 @@ public class TicketController
     @GetMapping(value = "/ticket/{ticketid}",produces = {"application/json"})
     public ResponseEntity<?> getTicketId(HttpServletRequest request, @PathVariable Long ticketid)
     {
-        logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
-
         Ticket t = ticketService.findTicketById(ticketid);
         return new ResponseEntity<>(t, HttpStatus.OK);
     }
@@ -73,6 +71,21 @@ public class TicketController
     //-----------------------------------------------------------------------------------------------------------------
 
 
+    @ApiOperation(value = "Retrieves a ticket associated with the boolean value.", response = Ticket.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "boolean Found", response = Ticket.class),
+            @ApiResponse(code = 404, message = "boolean Not Found", response = ErrorDetail.class)})
+    @GetMapping(value = "/ticket/status/{status}", produces = {"application/json"})
+    public ResponseEntity<?> findTicketStatus(HttpServletRequest request, @PathVariable boolean status)
+    {
+         List<Ticket> t = ticketService.findTicketByStatus(status);
+        return new ResponseEntity<>(t,HttpStatus.OK);
+
+    }
+
+
+    //-----------------------------------------------------------------------------------------------------------------
+
 
     @ApiOperation(value = "Retrieves a ticket associated with the username.", response = Ticket.class)
     @ApiResponses(value = {
@@ -80,11 +93,11 @@ public class TicketController
             @ApiResponse(code = 404, message = "Restaurant Not Found", response = ErrorDetail.class)})
     @GetMapping(value = "/username/{username}", produces = {"application/json"})
     public ResponseEntity<?> findTicketByUserName(HttpServletRequest request,
-                                                  @PathVariable String userName)
+                                                  @PathVariable String username)
     {
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        List<Ticket> theTickets = ticketService.findByUserName(userName);
+        List<Ticket> theTickets = ticketService.findByUserName(username);
         return new ResponseEntity<>(theTickets, HttpStatus.OK);
     }
 
