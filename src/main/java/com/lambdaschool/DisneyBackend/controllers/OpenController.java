@@ -1,17 +1,21 @@
 package com.lambdaschool.DisneyBackend.controllers;
 
+import antlr.Token;
 import com.lambdaschool.DisneyBackend.models.User;
 import com.lambdaschool.DisneyBackend.models.UserRoles;
 import com.lambdaschool.DisneyBackend.services.RoleService;
 import com.lambdaschool.DisneyBackend.services.UserService;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,9 +39,8 @@ public class OpenController
     @PostMapping(value = "/createnewuser",
                  consumes = {"application/json"},
                  produces = {"application/json"})
-    public ResponseEntity<?> addNewUser(HttpServletRequest request, @Valid
-    @RequestBody
-            User newuser) throws URISyntaxException
+    public ResponseEntity<?> addNewUser(HttpServletRequest request, @Valid @RequestBody
+            User newuser ) throws URISyntaxException
     {
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
 
@@ -52,8 +55,7 @@ public class OpenController
         URI newRestaurantURI = ServletUriComponentsBuilder.fromUriString(request.getServerName() + ":" + request.getLocalPort() + "/users/user/{userId}").buildAndExpand(newuser.getUserid()).toUri();
         responseHeaders.setLocation(newRestaurantURI);
 
-
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>("User Has Been Created", responseHeaders, HttpStatus.CREATED);
     }
 
 }
