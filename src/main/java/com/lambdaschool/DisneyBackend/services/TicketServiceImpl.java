@@ -41,7 +41,6 @@ public class TicketServiceImpl implements TicketService
         ticketrepo.findAll().iterator().forEachRemaining(list::add);
 
         list.removeIf(q -> !q.getUser().getUsername().equalsIgnoreCase(username));
-        System.out.println(list);
         return list;
 
 

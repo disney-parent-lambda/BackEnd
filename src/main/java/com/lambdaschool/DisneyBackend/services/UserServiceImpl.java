@@ -5,6 +5,7 @@ import com.lambdaschool.DisneyBackend.models.Ticket;
 import com.lambdaschool.DisneyBackend.models.User;
 import com.lambdaschool.DisneyBackend.models.UserRoles;
 import com.lambdaschool.DisneyBackend.repository.RoleRepository;
+import com.lambdaschool.DisneyBackend.repository.TicketRepository;
 import com.lambdaschool.DisneyBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
     @Autowired
     private RoleRepository rolerepos;
+
+    @Autowired
+    private TicketRepository ticketrepos;
 
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException

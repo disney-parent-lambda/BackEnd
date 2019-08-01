@@ -151,7 +151,7 @@ public class SeedData implements CommandLineRunner
         admins.add(new UserRoles(new User(), r2));
         admins.add(new UserRoles(new User(), r3));
         User u1 = new User("admin", "password", admins);
-        u1.getTickets().add(new Ticket( "ticket1", u1, rest7, attr12));
+        u1.getTickets().add(new Ticket( "ticket1",u1, rest7, attr12));
         userService.save(u1);
 
         // data, user
@@ -165,7 +165,7 @@ public class SeedData implements CommandLineRunner
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u3 = new User("barnbarn", "ILuvM4th!", users);
-        u3.getTickets().add(new Ticket("Where in a green Lantern and a screaming child",u3, rest4,attr17));
+        u3.getTickets().add(new Ticket("Run Forest",u3, rest4,attr17));
         userService.save(u3);
 
         users = new ArrayList<>();
@@ -177,6 +177,9 @@ public class SeedData implements CommandLineRunner
         users.add(new UserRoles(new User(), r2));
         User u5 = new User("Jane", "password", users);
         userService.save(u5);
+
+
+
 
 
 

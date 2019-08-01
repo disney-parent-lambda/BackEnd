@@ -75,8 +75,8 @@
 //
 //        // set the location header for the newly created resource
 //        HttpHeaders responseHeaders = new HttpHeaders();
-//        URI newQuoteURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{quoteid}").buildAndExpand(newQuote.getQuotesid()).toUri();
-//        responseHeaders.setLocation(newQuoteURI);
+////        URI newQuoteURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{quoteid}").buildAndExpand(newQuote.getQuotesid()).toUri();
+////        responseHeaders.setLocation(newQuoteURI);
 //
 //        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
 //    }

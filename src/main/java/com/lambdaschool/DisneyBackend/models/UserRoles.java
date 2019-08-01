@@ -1,21 +1,29 @@
 package com.lambdaschool.DisneyBackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+
+@ApiModel(value = "UserRoles", description = "The UserRoles Entity")
 @Entity
 @Table(name = "userroles")
 public class UserRoles extends Auditable implements Serializable
 {
+
+    @ApiModelProperty(name = "User", value = "User", required = true, example = "admin")
     @Id
     @ManyToOne
     @JoinColumn(name = "userid")
     @JsonIgnoreProperties("userRoles")
     private User user;
 
+
+    @ApiModelProperty(name = "RoleId", value = "RoleId", required = true, example = "01")
     @Id
     @ManyToOne
     @JoinColumn(name = "roleid")
