@@ -1,5 +1,9 @@
 package com.lambdaschool.DisneyBackend.controllers;
 
+import com.lambdaschool.DisneyBackend.models.ErrorDetail;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -17,6 +21,12 @@ public class LogoutController
     @Autowired
     private TokenStore tokenStore;
 
+
+
+    @ApiOperation(value = "Retrieves a token associated with the user and revokes token.", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "token revoked", response = void.class),
+            @ApiResponse(code = 404, message = "token Not revoked", response = ErrorDetail.class)})
     @RequestMapping(value = "/oauth/revoke-token",
                     method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)

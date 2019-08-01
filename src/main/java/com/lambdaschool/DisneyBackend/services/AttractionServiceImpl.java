@@ -4,6 +4,7 @@ import com.lambdaschool.DisneyBackend.exceptions.ResourceNotFoundException;
 import com.lambdaschool.DisneyBackend.models.Attractions;
 import com.lambdaschool.DisneyBackend.repository.AttractionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,10 +17,10 @@ public class AttractionServiceImpl implements AttractionService
     private AttractionRepository attractionrepo;
 
     @Override
-    public List<Attractions> findAll()
+    public List<Attractions> findAll(Pageable pageable)
     {
         List<Attractions> list = new ArrayList<>();
-        attractionrepo.findAll().iterator().forEachRemaining(list::add);
+        attractionrepo.findAll(pageable).iterator().forEachRemaining(list::add);
         return list;
     }
 

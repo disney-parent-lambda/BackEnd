@@ -5,6 +5,7 @@ import com.lambdaschool.DisneyBackend.exceptions.ResourceNotFoundException;
 import com.lambdaschool.DisneyBackend.models.Restaurant;
 import com.lambdaschool.DisneyBackend.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,10 +18,10 @@ public class RestaurantServiceImpl implements RestaurantService
     private RestaurantRepository restrauntrepo;
 
     @Override
-    public List<Restaurant> findAll()
+    public List<Restaurant> findAll(Pageable pageable)
     {
         List<Restaurant> list = new ArrayList<>();
-        restrauntrepo.findAll().iterator().forEachRemaining(list::add);
+        restrauntrepo.findAll(pageable).iterator().forEachRemaining(list::add);
         return list;
     }
 

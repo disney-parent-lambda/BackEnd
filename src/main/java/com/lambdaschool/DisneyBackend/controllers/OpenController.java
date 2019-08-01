@@ -1,10 +1,14 @@
 package com.lambdaschool.DisneyBackend.controllers;
 
 import antlr.Token;
+import com.lambdaschool.DisneyBackend.models.ErrorDetail;
 import com.lambdaschool.DisneyBackend.models.User;
 import com.lambdaschool.DisneyBackend.models.UserRoles;
 import com.lambdaschool.DisneyBackend.services.RoleService;
 import com.lambdaschool.DisneyBackend.services.UserService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.codehaus.jackson.map.util.JSONPObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +40,12 @@ public class OpenController
     @Autowired
     private RoleService roleService;
 
+
+
+    @ApiOperation(value = "Creates a newUser.", notes = "The newly created User id will be sent in the location header.", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "User Created Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error creating User", response = ErrorDetail.class)})
     @PostMapping(value = "/createnewuser",
                  consumes = {"application/json"},
                  produces = {"application/json"})

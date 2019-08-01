@@ -1,7 +1,9 @@
 package com.lambdaschool.DisneyBackend.controllers;
 
+import com.lambdaschool.DisneyBackend.models.ErrorDetail;
 import com.lambdaschool.DisneyBackend.models.Role;
 import com.lambdaschool.DisneyBackend.services.RoleService;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,15 @@ public class RolesController
     @Autowired
     RoleService roleService;
 
+    @ApiOperation(value = "returns all Roles", response = Role.class, responseContainer = "List")
+    @ApiImplicitParams({  @ApiImplicitParam(name = "page", dataType = "integr", paramType = "query",
+            value = "Results page you want to retrieve (0..N)"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+                    value = "Number of records per page."),
+            @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+                    value = "Sorting criteria in the format: property(,asc|desc). " +
+                            "Default sort order is ascending. " +
+                            "Multiple sort criteria are supported.")})
     @GetMapping(value = "/roles",
                 produces = {"application/json"})
     public ResponseEntity<?> listRoles(HttpServletRequest request)
@@ -36,6 +47,15 @@ public class RolesController
     }
 
 
+
+    //-----------------------------------------------------------------------------------------------------------------
+
+
+
+    @ApiOperation(value = "Retrieves a Role associated with the RoleId.", response = Role.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Role Found", response = Role.class),
+            @ApiResponse(code = 404, message = "Role Not Found", response = ErrorDetail.class)})
     @GetMapping(value = "/role/{roleId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getRole(HttpServletRequest request,
@@ -49,6 +69,16 @@ public class RolesController
     }
 
 
+
+
+    //-----------------------------------------------------------------------------------------------------------------
+
+
+
+    @ApiOperation(value = "Creates a new Role.", notes = "The newly created Role id will be sent in the location header.", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Role Created Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error creating Role", response = ErrorDetail.class)})
     @PostMapping(value = "/role")
     public ResponseEntity<?> addNewRole(HttpServletRequest request, @Valid
     @RequestBody
@@ -66,6 +96,16 @@ public class RolesController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+
+
+    //-----------------------------------------------------------------------------------------------------------------
+
+
+
+    @ApiOperation(value = "Deletes a Role by Role's ID", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Role Delete Successful", response = void.class),
+            @ApiResponse(code = 500, message = "Error deleting Role" , response = void.class)})
     @DeleteMapping("/role/{id}")
     public ResponseEntity<?> deleteRoleById(HttpServletRequest request,
                                             @PathVariable
